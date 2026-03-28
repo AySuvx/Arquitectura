@@ -1,40 +1,77 @@
-# Taller 7: Patrones de Diseño - Publish-Subscribe e Inyección de Dependencia
+# Taller 2: Patrones de Diseño - Semana 7
 
 ## Descripción del Proyecto
-[cite_start]Este repositorio contiene la implementación práctica de dos patrones de arquitectura de software[cite: 4, 5]:
-1. [cite_start]**Publish-Subscribe**: Un sistema de eventos dinámicos donde los publicadores y suscriptores no están acoplados directamente[cite: 13, 14, 15].
-2. [cite_start]**Inyección de Dependencia**: Un sistema de notificaciones desacoplado usando *Constructor Injection*, permitiendo intercambiar servicios de envío de mensajes.
+[cite_start]Este repositorio contiene la implementación práctica de dos patrones de diseño arquitectónicos solicitados en el taller[cite: 9]:
+1. [cite_start]**Publish-Subscribe**: Un sistema que permite la comunicación entre emisores (Publishers) y receptores (Subscribers) de forma desacoplada y dinámica.
+2. [cite_start]**Inyección de Dependencia**: Implementación utilizando *Constructor Injection* para garantizar que las dependencias sean intercambiables y faciliten el testeo mediante Mocking.
+
+## Estructura de Archivos
+```text
+Arquitectura/
+├── src/
+│   ├── publish_subscribe.py    # Código del Patrón Pub-Sub
+│   └── dependency_injection.py # Código del Patrón DI
+├── tests/
+│   └── test_mocking.py         # Pruebas unitarias y Mocking
+├── .gitignore                  # Archivos excluidos de Git
+└── README.md                   # Documentación principal
 
 ## Diagramas de Arquitectura
 
-### Patrón Publish-Subscribe
+### 1. Patrón Publish-Subscribe
 ```mermaid
 graph TD
-    P1[Publisher: Tutor] -->|Publica Evento| EM(EventManager / Broker)
-    P2[Publisher: Sistema] -->|Publica Evento| EM
-    EM -->|Notifica 'Tutorias'| S1[Subscriber: Estudiante 1]
-    EM -->|Notifica 'Tutorias'| S2[Subscriber: Estudiante 2]
-    EM -->|Notifica 'Mantenimiento'| S1
+    A[Tutor_Academico] -->|Publica| B(EventManager)
+    C[Admin_Sistema] -->|Publica| B
+    B -->|Notifica| D[Estudiante_Andres]
+    B -->|Notifica| E[Estudiante_Lucia]
 
 classDiagram
     class MessageService {
         <<interface>>
-        +send(message: str)
+        +send(message)
     }
     class EmailService {
-        +send(message: str)
+        +send(message)
     }
     class SMSService {
-        +send(message: str)
+        +send(message)
     }
-    class MockMessageService {
-        +send(message: str)
-    }
-    class StudentOnboarding {
-        -service: MessageService
-        +welcome_student(name: str)
+    class PlatformManager {
+        -MessageService service
+        +notify_user(user, note)
     }
     MessageService <|-- EmailService
     MessageService <|-- SMSService
-    MessageService <|-- MockMessageService
-    StudentOnboarding --> MessageService : Inyectado por Constructor
+    PlatformManager --> MessageService : utiliza
+
+Instrucciones de Ejecución 
+
+1. Clonar el repositorio
+
+git clone [https://github.com/TU_USUARIO/TU_REPOSITORIO.git](https://github.com/TU_USUARIO/TU_REPOSITORIO.git)
+cd Arquitectura
+
+2. Ejecutar Patrón Publish-Subscribe 
+
+Este script demuestra el registro de 2 suscriptores, la publicación de eventos por parte de 2 publishers y la desuscripción dinámica de un usuario.
+
+python src/publish_subscribe.py
+
+3. Ejecutar Patrón Inyección de Dependencia 
+
+Muestra cómo se inyectan diferentes servicios (Email y SMS) en la lógica de la plataforma.
+
+python src/dependency_injection.py
+
+Pruebas y Mocking 
+
+Para verificar que las dependencias pueden ser reemplazadas por objetos simulados (Mocks) para pruebas aisladas:
+
+Ejemplo de Salida Esperada 
+
+Al ejecutar las pruebas, debería obtener:
+
+
+Ran 1 test in 0.001s
+OK
