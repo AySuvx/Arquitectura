@@ -9,6 +9,7 @@ class MockService(MessageService):
     def send(self, message: str):
         self.sent_count += 1
 
+## Requisito 3.2: Pruebas unitarias con dependencias mockeadas
 class TestDI(unittest.TestCase):
     def test_injection_works(self):
         mock = MockService()
