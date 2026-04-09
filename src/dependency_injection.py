@@ -5,7 +5,8 @@ class MessageService(ABC):
     @abstractmethod
     def send(self, message: str):
         pass
-
+    
+# Implementaciones concretas de MessageService
 class EmailService(MessageService):
     """Implementación de servicio por correo electrónico."""
     def send(self, message: str):

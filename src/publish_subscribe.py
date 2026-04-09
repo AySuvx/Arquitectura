@@ -11,6 +11,7 @@ class EventManager:
         self._subscribers[event_type].append(subscriber)
         print(f"[*] {subscriber.name} suscrito a '{event_type}'.")
 
+## Requisito 2.2: Desuscripción dinámica
     def unsubscribe(self, event_type, subscriber):
         """Permite desuscribirse dinámicamente de eventos."""
         if event_type in self._subscribers and subscriber in self._subscribers[event_type]:

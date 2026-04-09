@@ -9,7 +9,7 @@ Este repositorio contiene la implementación práctica de dos patrones de diseñ
 
 ---
 
-## Estructura de Archivos
+## Estructura de Archivos.
 
 ```text
 Arquitectura/
@@ -26,7 +26,7 @@ Arquitectura/
 
 ## Diagramas de Arquitectura
 
-### 1. Patrón Publish-Subscribe
+### 1. Patrón Publish-Subscribe.
 
 ```mermaid
 graph TD
